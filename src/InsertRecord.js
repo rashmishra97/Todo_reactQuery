@@ -1,41 +1,42 @@
 import React, { useState, useContext } from "react";
+import { ContextVar } from "./GlobalContext";
 // import PropTypes from "prop-types";
-import { insertToDB } from "./PouchDB";
-import { GlobalInfoVar } from "./GlobalInfo";
+import { insertDatabase } from "./PouchDB4";
 
-const InsertToDo = () => {
-  const [inputlist, setInputlist] = useState(""); // inputList has user input
-  // const obj={gy:"",hy:hy(),itemlist:[]}
-  const data = useContext(GlobalInfoVar);
+const InsertRecord = () => {
+  const [myInputlist, setMyInputlist] = useState("");
+  const dataVal = useContext(ContextVar);
   // getFuvc,itemlist=[]
   const itemEvent = (e) => {
-    setInputlist(e.target.value);
+    setMyInputlist(e.target.value);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newTodo = {
+    const todoList = {
       // id: responseID.id,
-      task: inputlist,
-      isDone: false,
+      task: myInputlist, // .toLocaleString("en-US", { day: "2-digit" }
+      date: new Date(),
     };
-    const responseID = await insertToDB(newTodo);
-    newTodo.id = responseID?.id;
-    setInputlist("");
-    const ret = await data?.getToDBFun(); // need to understand
+    console.log("date======= ", todoList.date);
+    const responseID = await insertDatabase(todoList);
+    // console.log("newTodo data is getToDB ", newTodo);
+    todoList.id = responseID?.id;
+    setMyInputlist("");
+    const ret = await dataVal?.getToDB(); // need to understand
     console.log("ret======== ", ret);
   };
 
   return (
     <div className="">
-      <h1 className=" text-center text-3xl font-bold py-4 mr-5">TODO TASk</h1>
+      {/* <h1 className=" text-center text-3></h1> */}
       <form onSubmit={handleSubmit} name="myForm">
         <input
           name="myTodo"
           type="text"
           required={React}
           placeholder="Add Tasks"
-          value={inputlist}
+          value={myInputlist}
           onChange={itemEvent}
           className="border border-black py-1 px-2 "
         />
@@ -51,7 +52,7 @@ const InsertToDo = () => {
   );
 };
 
-export default InsertToDo;
+export default InsertRecord;
 
 // InsertToDo.propTypes = {
 //   getToDBFun: PropTypes.func,

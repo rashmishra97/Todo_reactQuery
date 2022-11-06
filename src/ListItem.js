@@ -1,20 +1,21 @@
 import React, { memo } from "react";
 import PropTypes from "prop-types";
-import { removeToDB } from "./PouchDB";
+import { removeToDatabase } from "./PouchDB4";
 
-const TodoListItem = ({ task, taskId, getToDBFun }) => {
+const TodoListItem = ({ task, taskId, getToDB, date }) => {
   // console.log("TodoListItem", todoIndex);
   const removeTodo = async () => {
     // const newTodo = itemsList.filter((item) => item.id !== taskId);
     // setItemsList(newTodo);
-    await removeToDB(taskId);
-    await getToDBFun();
+    await removeToDatabase(taskId);
+    await getToDB();
   };
 
   return (
     <div className="space-y-5 flex space-x-5 items-center">
       <div className="items-center">
         <li className="mt-3">{task}</li>
+        <li className="mt-3">{date}</li>
       </div>
       <div className=" space-x-5 space-y-2">
         <button type="button" onClick={removeTodo}>
@@ -30,11 +31,13 @@ export default memo(TodoListItem);
 TodoListItem.propTypes = {
   task: PropTypes.string,
   taskId: PropTypes.string,
-  getToDBFun: PropTypes.func,
+  date: PropTypes.string,
+  getToDB: PropTypes.func,
 };
 
 TodoListItem.defaultProps = {
   task: "sample task",
   taskId: "no id",
-  getToDBFun: () => {},
+  date: "//-//-//",
+  getToDB: () => {},
 };

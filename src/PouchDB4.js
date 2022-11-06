@@ -1,16 +1,16 @@
 import PouchDb from "pouchdb";
 
-const db = new PouchDb("mypouchdb");
+const dbvar = new PouchDb("pouchdatabaseFile4");
 
-db.info().then((info) => {
+dbvar.info().then((info) => {
   // eslint-disable-next-line no-console
   console.log("Show me ", info);
 });
 
-export async function insertToDB(data) {
+export async function insertDatabase(dataItem) {
   try {
-    const response = await db.post(data);
-    return response;
+    const responseget = await dbvar.post(dataItem);
+    return responseget;
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(error);
@@ -18,20 +18,20 @@ export async function insertToDB(data) {
   return null;
 }
 
-export function getToDB() {
-  const val = db
+export function getToDatabase() {
+  const value = dbvar
     .allDocs({ include_docs: true, descending: true }, (err, doc) => doc.rows)
-    .catch((err) => {
+    .catch((error) => {
       // eslint-disable-next-line no-console
-      console.error(err);
+      console.error(error);
     });
-  return val;
+  return value;
 }
 
-export async function removeToDB(id) {
+export async function removeToDatabase(id) {
   try {
-    const doc = await db.get(id);
-    db.remove(doc);
+    const docs = await dbvar.get(id);
+    dbvar.remove(docs);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(error);

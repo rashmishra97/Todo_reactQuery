@@ -1,15 +1,13 @@
 import React from "react";
-import InsertTODO from "./InsertTODO";
-// import { getToDB } from "./PouchDB";
-import TODOLIST from "./TODOLIST";
+import InsertRecord from "./InsertRecord";
+import Retrive from "./Retrive";
 
 const App = () => {
   console.log("App Compo");
   return (
     <div>
-      <InsertTODO />
-      <TODOLIST />
-      <div>huhuihiug</div>
+      <InsertRecord />
+      <Retrive />
     </div>
   );
 };

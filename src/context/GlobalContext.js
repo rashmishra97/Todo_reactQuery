@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { getToDatabase } from "./PouchDB4";
+import { getToDatabase } from "../db/PouchDB4";
 
 export const ContextVar = createContext();
 
@@ -13,10 +13,7 @@ export const GlobalContext = ({ children }) => {
   };
 
   // value is object , we wrap it to Memo
-  const myValue = React.useMemo(
-    () => ({ getToDB, listRecord }),
-    [listRecord.length]
-  );
+  const myValue = React.useMemo(() => ({ getToDB, listRecord }), [listRecord]);
 
   useEffect(() => {
     getToDB();

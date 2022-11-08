@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
-import { ContextVar } from "./GlobalContext";
-// import PropTypes from "prop-types";
+import { ContextVar } from "../context/GlobalContext";
 import TodoListItem from "./ListItem";
 
 // eslint-disable-next-line react/prop-types
@@ -19,11 +18,11 @@ const Retrive = () => {
               index // here is a nested return
             ) => (
               <TodoListItem
-                task={itemvalue.doc.task}
+                tasks={itemvalue.doc.task}
                 date={itemvalue.doc.date}
-                taskId={itemvalue.id}
+                tasksId={itemvalue.id}
                 key={itemvalue.id}
-                getToDB={data?.getToDB}
+                // getToDB={data?.getToDB}
                 todoIndex={index}
               />
             )

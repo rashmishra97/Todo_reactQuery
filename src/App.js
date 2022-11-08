@@ -1,13 +1,13 @@
 import React from "react";
-import InsertRecord from "./InsertRecord";
-import Retrive from "./Retrive";
+import InsertRecord from "./pages/InsertRecord";
+// import Retrive from "./Retrive";
 
 const App = () => {
   console.log("App Compo");
   return (
     <div>
       <InsertRecord />
-      <Retrive />
+      {/* <Retrive /> */}
     </div>
   );
 };

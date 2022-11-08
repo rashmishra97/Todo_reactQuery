@@ -1,7 +1,8 @@
 import React, { useState, useContext } from "react";
-import { ContextVar } from "./GlobalContext";
+import { ContextVar } from "../context/GlobalContext";
 // import PropTypes from "prop-types";
-import { insertDatabase } from "./PouchDB4";
+import { insertDatabase } from "../db/PouchDB4";
+import Retrive from "../component/Retrive";
 
 const InsertRecord = () => {
   const [myInputlist, setMyInputlist] = useState("");
@@ -45,9 +46,10 @@ const InsertRecord = () => {
           name="myForm"
           className="ml-5 border-black bg-slate-700 px-3 py-1 text-white"
         >
-          Add
+          Click Me
         </button>
       </form>
+      <Retrive />
     </div>
   );
 };

@@ -1,20 +1,21 @@
-import React, { memo } from "react";
+import React, { memo, useContext } from "react";
 import PropTypes from "prop-types";
-import { removeToDatabase } from "./PouchDB4";
 
-const TodoListItem = ({ task, taskId, getToDB, date }) => {
-  // console.log("TodoListItem", todoIndex);
+import { removeToDatabase } from "../db/PouchDB4";
+import { ContextVar } from "../context/GlobalContext";
+
+const TodoListItem = ({ tasks, tasksId, date }) => {
+  const dataFromContext = useContext(ContextVar);
+
   const removeTodo = async () => {
-    // const newTodo = itemsList.filter((item) => item.id !== taskId);
-    // setItemsList(newTodo);
-    await removeToDatabase(taskId);
-    await getToDB();
+    await removeToDatabase(tasksId);
+    await dataFromContext?.getToDB();
   };
 
   return (
     <div className="space-y-5 flex space-x-5 items-center">
       <div className="items-center">
-        <li className="mt-3">{task}</li>
+        <li className="mt-3">{tasks}</li>
         <li className="mt-3">{date}</li>
       </div>
       <div className=" space-x-5 space-y-2">
@@ -29,15 +30,13 @@ const TodoListItem = ({ task, taskId, getToDB, date }) => {
 export default memo(TodoListItem);
 
 TodoListItem.propTypes = {
-  task: PropTypes.string,
-  taskId: PropTypes.string,
+  tasks: PropTypes.string,
+  tasksId: PropTypes.string,
   date: PropTypes.string,
-  getToDB: PropTypes.func,
 };
 
 TodoListItem.defaultProps = {
-  task: "sample task",
-  taskId: "no id",
+  tasks: "sample task",
+  tasksId: "no id",
   date: "//-//-//",
-  getToDB: () => {},
 };

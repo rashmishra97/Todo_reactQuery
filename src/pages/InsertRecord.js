@@ -1,21 +1,28 @@
 import React, { useState, useContext } from "react";
-import { ContextVar } from "../context/GlobalContext";
-// import PropTypes from "prop-types";
-import { insertDatabase } from "../db/PouchDB4";
 import Retrive from "../component/Retrive";
+import { ContextVar } from "../context/GlobalContext";
+import { insertDatabase } from "../db/PouchDB4";
 
 const InsertRecord = () => {
   const [myInputlist, setMyInputlist] = useState("");
   const dataVal = useContext(ContextVar);
-  // getFuvc,itemlist=[]
+
   const itemEvent = (e) => {
     setMyInputlist(e.target.value);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // const username = "user";
+
+    // if (myInputlist === "" || myInputlist !== username) {
+    //   console.log("vghvghvh");
+    //   alert("Please Sign In First");
+    //   setMyInputlist("");
+    //   return;
+    // }
+
     const todoList = {
-      // id: responseID.id,
       task: myInputlist, // .toLocaleString("en-US", { day: "2-digit" }
       date: new Date(),
     };
@@ -30,12 +37,10 @@ const InsertRecord = () => {
 
   return (
     <div className="">
-      {/* <h1 className=" text-center text-3></h1> */}
       <form onSubmit={handleSubmit} name="myForm">
         <input
           name="myTodo"
           type="text"
-          required={React}
           placeholder="Add Tasks"
           value={myInputlist}
           onChange={itemEvent}
@@ -55,13 +60,3 @@ const InsertRecord = () => {
 };
 
 export default InsertRecord;
-
-// InsertToDo.propTypes = {
-//   getToDBFun: PropTypes.func,
-// };
-
-// InsertToDo.defaultProps = {
-//   // task: "sample task",
-//   // taskId: "no id",
-//   getToDBFun: () => {},
-// };

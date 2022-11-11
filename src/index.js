@@ -1,20 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
+import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { GlobalContext } from "./context/GlobalContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-console.log("index");
+
 root.render(
-  // <React.StrictMode>
-
-  <GlobalContext>
-    <App />
-  </GlobalContext>
-
-  // </React.StrictMode>
+  <BrowserRouter>
+    <GlobalContext>
+      <App />
+    </GlobalContext>
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

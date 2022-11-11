@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { getToDatabase } from "../db/PouchDB4";
+// import Navbar from "../component/Routing/Navbar";
 
 export const ContextVar = createContext();
 
@@ -22,10 +23,13 @@ export const GlobalContext = ({ children }) => {
   console.log("render info", myValue);
   return (
     // children is App component
-    <ContextVar.Provider value={myValue}>{children}</ContextVar.Provider>
+    <ContextVar.Provider value={myValue}>
+      {/* <Navbar /> */}
+      {children}
+    </ContextVar.Provider>
   );
 };
 
 GlobalContext.propTypes = {
-  children: PropTypes.objectOf(PropTypes.node).isRequired,
+  children: PropTypes.node.isRequired,
 };

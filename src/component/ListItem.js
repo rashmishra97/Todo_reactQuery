@@ -9,6 +9,7 @@ const TodoListItem = ({ tasks, tasksId, date }) => {
 
   const removeTodo = async () => {
     await removeToDatabase(tasksId);
+    console.log(date);
     await dataFromContext?.getToDB();
   };
 
@@ -16,11 +17,11 @@ const TodoListItem = ({ tasks, tasksId, date }) => {
     <div className="space-y-5 flex space-x-5 items-center">
       <div className="items-center">
         <li className="mt-3">{tasks}</li>
-        <li className="mt-3">{date}</li>
+        {/* <li className="mt-3">{date}</li> */}
       </div>
       <div className=" space-x-5 space-y-2">
         <button type="button" onClick={removeTodo}>
-          X
+          Delete
         </button>
       </div>
     </div>

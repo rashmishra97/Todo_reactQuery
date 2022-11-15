@@ -1,6 +1,6 @@
 import PouchDb from "pouchdb";
 
-const database = new PouchDb("myDatabaseuseQuery");
+const database = new PouchDb("mydatabase");
 
 database.info().then((info) => {
   // eslint-disable-next-line no-console

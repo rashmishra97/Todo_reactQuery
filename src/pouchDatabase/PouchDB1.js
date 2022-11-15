@@ -1,6 +1,6 @@
 import PouchDb from "pouchdb";
 
-const database = new PouchDb("mydatabase");
+const database = new PouchDb("myDatabaseuseQuery");
 
 database.info().then((info) => {
   // eslint-disable-next-line no-console
@@ -26,6 +26,21 @@ export function getTopouchDB() {
       console.error(err);
     });
   return val;
+}
+
+export async function updateDB(id, data) {
+  try {
+    const doc = await database.get(id);
+    const response = await database.put({
+      _id: id,
+      // eslint-disable-next-line no-underscore-dangle
+      _rev: doc._rev,
+      ...data,
+    });
+    console.log("response", response);
+  } catch (error) {
+    console.log("error is== ", error);
+  }
 }
 
 export async function removeTopouchDB(id) {

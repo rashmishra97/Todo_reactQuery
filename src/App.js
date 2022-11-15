@@ -1,27 +1,29 @@
 import React from "react";
-// eslint-disable-next-line no-unused-vars
-import { Link, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Protected from "./components/Protected";
 import About from "./pages/About";
-import Navbar from "./component/Routing/Navbar";
-import UserProfile from "./pages/UserProfile";
-import InsertRecord from "./pages/InsertRecord";
 import Contact from "./pages/Contact";
-import SignOut from "./pages/SignOut";
 import SignIn from "./pages/SignIn";
-import Protected from "./component/Protected";
+import SignOut from "./pages/SignOut";
+import UserProfile from "./pages/UserProfile";
+import InsertData from "./pages/InsertData";
 
-const App = () => (
-  <>
-    <Navbar />
-    <Routes>
-      <Route path="/" element={<Protected Comp={InsertRecord} />} />
-      <Route path="/signin" element={<SignIn />} />
-      <Route path="/profile" element={<Protected Comp={UserProfile} />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/signout" element={<SignOut />} />
-    </Routes>
-  </>
-);
+const App = () => {
+  console.log("App Componenet");
+  return (
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Protected CompProp={InsertData} />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/profile" element={<Protected CompProp={UserProfile} />} />
+        <Route path="/signout" element={<SignOut />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+    </>
+  );
+};
 
 export default App;

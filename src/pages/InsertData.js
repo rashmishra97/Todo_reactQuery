@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useMutation } from "react-query";
 import { insertTopouchDB } from "../pouchDatabase/PouchDB1";
 import FetchData from "../components/FetchData";
 
@@ -11,15 +12,29 @@ const InsertData = () => {
     setInputlst(e.target.value);
   };
 
-  const submitListener = async (e) => {
-    e.preventDefault();
+  // const submitListener = async (e) => {
+  //   e.preventDefault();
+  //   const newTodoList = {
+  //     task: inputlst,
+  //   };
+  //   await insertTopouchDB(newTodoList);
+  //   // eslint-disable-next-line no-unused-expressions
+  //   submitListener.dataFun;
+  // };
+
+  const { mutate, isLoading, isSuccess, isError } = useMutation({
+    mutationFn: (newTodoparam) => insertTopouchDB(newTodoparam),
+  });
+
+  const submitListener = (event) => {
+    event.preventDefault();
     const newTodoList = {
       task: inputlst,
     };
-    await insertTopouchDB(newTodoList);
-    // eslint-disable-next-line no-unused-expressions
-    submitListener.dataFun;
+    mutate(newTodoList);
   };
+
+  console.log("isLoading ", isLoading, "isSucess", isSuccess, "Error", isError);
 
   // const { data, error, isLoading } = useQuery("key", async () => {
   //   const dataList = await getTopouchDB();

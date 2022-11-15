@@ -1,26 +1,66 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import PropTypes from "prop-types";
-import { removeTopouchDB } from "../pouchDatabase/PouchDB1";
-// import { GlobalInfo } from "../contexts/GlobalContext";
+import { useMutation } from "react-query";
+import { removeTopouchDB, updateDB } from "../pouchDatabase/PouchDB1";
 
-const TodoItem = ({ task, taskId }) => {
-  // const dataFromContext = useContext(GlobalInfo);
+const TodoItem = ({ tasksid }) => {
+  const [editTask, setEditTask] = useState("");
 
   console.log("ITEM COMPONENET");
 
-  const remove = async () => {
-    await removeTopouchDB(taskId);
-    // await dataFromContext.getToDBFunction();
+  const { mutate, isLoading, isSuccess, isError } = useMutation({
+    mutationFn: () => removeTopouchDB(tasksid),
+  });
+  const remove = (event) => {
+    event.preventDefault();
+    mutate();
   };
+  console.log("isLoading ", isLoading, "isSucess", isSuccess, "Error", isError);
+
+  const {
+    mutate: isMutate,
+    isLoading: isLoader,
+    isSuccess: isSuccer,
+    isError: isErr,
+  } = useMutation({
+    mutationFn: () => updateDB(tasksid, { task: editTask }),
+  });
+
+  const edit = (event) => {
+    event.preventDefault();
+    isMutate();
+  };
+
+  // const edit = () => {
+  //   updateDB(tasksid, { task: editTask });
+  // };
+
+  console.log(
+    "isLoader",
+    isLoader,
+    "isSuccer",
+    isSuccer,
+    "isErr",
+    isErr,
+    "isMute",
+    isMutate
+  );
 
   return (
     <div className="space-y-5 flex space-x-5 items-center">
-      <div className="items-center">
-        <li className="mt-3">{task}</li>
-      </div>
-      <div className=" space-x-5 space-y-2">
+      <div className="flex space-x-5 space-y-2">
+        <input
+          type="text"
+          onChange={(e) => {
+            setEditTask(e.target.value);
+          }}
+          style={{ border: "2px solid black" }}
+        />
+        <button type="button" onClick={edit}>
+          Edit
+        </button>
         <button type="button" onClick={remove}>
-          X
+          Delete
         </button>
       </div>
     </div>
@@ -30,11 +70,9 @@ const TodoItem = ({ task, taskId }) => {
 export default memo(TodoItem);
 
 TodoItem.propTypes = {
-  task: PropTypes.string,
-  taskId: PropTypes.string,
+  tasksid: PropTypes.string,
 };
 
 TodoItem.defaultProps = {
-  task: "task",
-  taskId: "id",
+  tasksid: "id",
 };

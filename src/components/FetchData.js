@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery } from "react-query";
 import { getTopouchDB } from "../pouchDatabase/PouchDB1";
+import TodoItem from "./TodoItem";
 
 const FetchData = () => {
   const { data, error, isLoading } = useQuery("key", async () => {
@@ -14,7 +15,12 @@ const FetchData = () => {
     <div>
       <ul>
         {data?.rows?.map((item) => (
-          <li key={item.id}>{item.doc.task}</li>
+          <div className="flex space-x-4">
+            <li className="w-10" key={item.id}>
+              {item.doc.task}
+            </li>
+            <TodoItem tasksid={item.id} />
+          </div>
         ))}
       </ul>
     </div>
@@ -22,44 +28,3 @@ const FetchData = () => {
 };
 
 export default FetchData;
-
-// import { useQuery } from "react-query";
-// import { getTopouchDB } from "../pouchDatabase/PouchDB1";
-// // import TodoItem from "./TodoItem";
-
-// const FetchData = () => {
-//   const { data, error, isLoading } = useQuery("key", () => {
-//     getTopouchDB();
-//   });
-
-//   console.log("data ", data, "err ", error, "isLoadnd ", isLoading);
-//     return(
-//       <div>
-//         <h1></h1>
-//       </div>
-//     )
-// };
-
-// export default FetchData;
-
-// TodoListItem.propTypes = {
-//   itemsList: PropTypes.array.isRequired,
-//   getToDBFun: PropTypes.func.isRequired,
-// };
-
-// TodoListItem.defaultProps = {
-//   itemsList: [],
-//   getToDBFun: () => {},
-// };
-
-/* <ul className="ml-5">
-        {dataList?.list.map((item, indx) => (
-          <TodoItem
-            task={item.doc.task}
-            taskId={item.id}
-            key={item.id}
-            // getToDBFunction={dataList?.getToDBFunction}
-            todoIndex={indx}
-          />
-        ))}
-      </ul> */

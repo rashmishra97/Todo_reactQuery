@@ -1,20 +1,29 @@
 import React, { memo, useState } from "react";
 import PropTypes from "prop-types";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { removeTopouchDB, updateDB } from "../pouchDatabase/PouchDB1";
+import { GET_TODOS } from "../utils/contants";
 
 const TodoItem = ({ tasksid }) => {
   const [editTask, setEditTask] = useState("");
+  const queryClient = useQueryClient();
 
   console.log("ITEM COMPONENET");
 
-  const { mutate, isLoading, isSuccess, isError } = useMutation({
-    mutationFn: () => removeTopouchDB(tasksid),
-  });
+  const { mutate, isLoading, isSuccess, isError } = useMutation(
+    removeTopouchDB,
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(GET_TODOS);
+      },
+    }
+  );
+
   const remove = (event) => {
     event.preventDefault();
-    mutate();
+    mutate(tasksid);
   };
+
   console.log("isLoading ", isLoading, "isSucess", isSuccess, "Error", isError);
 
   const {
@@ -22,8 +31,10 @@ const TodoItem = ({ tasksid }) => {
     isLoading: isLoader,
     isSuccess: isSuccer,
     isError: isErr,
-  } = useMutation({
-    mutationFn: () => updateDB(tasksid, { task: editTask }),
+  } = useMutation(() => updateDB(tasksid, { task: editTask }), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(GET_TODOS);
+    },
   });
 
   const edit = (event) => {

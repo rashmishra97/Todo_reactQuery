@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const SignOut = () => {
+const SignOutPage = () => {
   const navigate = useNavigate();
 
   const buttonHandler = () => {
@@ -19,4 +19,4 @@ const SignOut = () => {
     </div>
   );
 };
-export default SignOut;
+export default SignOutPage;

@@ -2,15 +2,16 @@ import React from "react";
 import { useQuery } from "react-query";
 import { getTopouchDB } from "../pouchDatabase/PouchDB1";
 import TodoItem from "./TodoItem";
+import { GET_TODOS } from "../utils/contants";
 
-const FetchData = () => {
-  const { data, error, isLoading } = useQuery("key", async () => {
-    const dataList = await getTopouchDB();
-    return dataList;
-  });
+const TodoList = () => {
+  const { isLoading, data, isError } = useQuery(GET_TODOS, getTopouchDB);
 
-  console.log("data==== ", data, "err", error, "isLoadng", isLoading);
+  if (isLoading) {
+    <h1>Loading...</h1>;
+  }
 
+  console.log("error ", isError, "Loading", isLoading);
   return (
     <div>
       <ul>
@@ -27,4 +28,4 @@ const FetchData = () => {
   );
 };
 
-export default FetchData;
+export default TodoList;

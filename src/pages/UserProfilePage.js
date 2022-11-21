@@ -1,7 +1,7 @@
 import React from "react";
 // import { Link } from "react-router-dom";
 
-const UserProfile = () => (
+const UserProfilePage = () => (
   <div>
     <h1 className="bg-green-500">Hello Profile</h1>
     {/* <Link to="/about" className="border">
@@ -11,4 +11,4 @@ const UserProfile = () => (
   </div>
 );
 
-export default UserProfile;
+export default UserProfilePage;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const SignIn = () => {
+const SignInPage = () => {
   const [pass, setPassword] = useState("");
   const [username, setUsername] = useState("");
   // const [status, setStatus] = useState(false);  ||
@@ -55,4 +55,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignInPage;
